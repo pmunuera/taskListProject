@@ -10,7 +10,11 @@ function onDeviceReady() {
 
 function afegeix(){
     var element = window.prompt("Element a afegir");
-    $("#listview").append("<li><a>"+element+"</a></li>");
-    $("#listview").listview("refresh");
+    $("ul").append("<li><a>"+element+"</a></li>");
+    $("ul").listview("refresh");
+}
+function borra1(){
+    $('li').remove();
 }
 $('#Afegeix').click(afegeix);
+$('#elimina1').click(borra1);
