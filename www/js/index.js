@@ -7,14 +7,19 @@ function onDeviceReady() {
     //document.getElementById('deviceready').classList.add('ready');
 
 }
-
+function Hello(e){
+    var caller = e.target || e.srcElement;
+    console.log( caller );
+}
 function afegeix(){
-    var element = window.prompt("Element a afegir");
-    $("ul").append("<li><a>"+element+"</a></li>");
+    var text = window.prompt("Element a afegir");
+    var element = $("<li><a>"+text+"</a><button>Elimina</button></li>");
+    $("ul").append(element);
+    $("button",element).click(elimina);
     $("ul").listview("refresh");
 }
-function borra1(){
-    $('li').remove();
+function elimina(){
+    $(event.srcElement).remove();
+    
 }
 $('#Afegeix').click(afegeix);
-$('#elimina1').click(borra1);
