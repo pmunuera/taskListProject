@@ -1,5 +1,5 @@
 document.addEventListener('deviceready', onDeviceReady, false);
-
+var nomPagina;
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
 
@@ -9,15 +9,15 @@ function onDeviceReady() {
 }
 function Hello(e){
     var caller = e.target || e.srcElement;
-    console.log( caller );
+    console.log(caller);
 }
 function afegeix(){
-    var text = window.prompt("Element a afegir");
-    var element = $("<li><a href='#page1'>"+text+"<button id='Elimina'>Elimina</button><button id='Edita'>Edita</button></a></li>");
-    if(text!=null){
+    nomPagina = window.prompt("Element a afegir");
+    var element = $("<li><a href='#page1'>"+nomPagina+"<button>Elimina</button></li>");
+    if(nomPagina!=null){
         $("ul").append(element);
-        $("#Elimina",element).click(elimina);
-        $("#Edita",element).click(edita);
+        $("button",element).click(elimina);
+        $("a",element).click(edita);
         $("ul").listview("refresh");
     }
 }
@@ -26,9 +26,10 @@ function elimina(e){
     return false;
     
 }
-function edita(){
-    var text = window.prompt("Afegeix descripcio");
-    $(".ui-content").text(text);
-    return false;
+function edita(e){
+    nomPagina = $(e.target).parent().text();
+    $("input").val(nomPagina);
+    nomPagina = $("input").val;
+    $("a").click($(e.target).parent().text(nomPagina));
 }
 $('#Afegeix').click(afegeix);
