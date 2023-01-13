@@ -13,13 +13,11 @@ function Hello(e){
 }
 function afegeix(){
     var text = window.prompt("Element a afegir");
-    var element = $("<li><a>"+text+"</a><button>Elimina</button></li>");
-    $("ul").append(element);
-    $("button",element).click(elimina);
-    $("ul").listview("refresh");
+    var element = $("<li><a href='#page1'>"+text+"</a></li>");
+    if(text!=null){
+        $("ul").append(element);
+        $("ul").listview("refresh");
+    }
 }
-function elimina(){
-    $(event.srcElement).remove();
-    
-}
+
 $('#Afegeix').click(afegeix);
