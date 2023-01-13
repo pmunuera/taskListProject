@@ -27,7 +27,7 @@ function elimina(e){
     
 }
 function edita(e){
-    nomPagina = $(e.target).parent().text();
+    nomPagina = $(e.target).parent().clone().children().remove().text();
     $("input").val(nomPagina);
     nomPagina = $("input").val;
     $("a").click($(e.target).parent().text(nomPagina));
