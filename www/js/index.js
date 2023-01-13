@@ -28,6 +28,7 @@ function elimina(e){
 }
 function edita(){
     var text = window.prompt("Afegeix descripcio");
-    $("#page1").text(text);
+    $("#page1","p").text(text);
     return false;
 }
+$('#Afegeix').click(afegeix);
