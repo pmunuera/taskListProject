@@ -1,5 +1,5 @@
 document.addEventListener('deviceready', onDeviceReady, false);
-var nomPagina;
+var globalEditElement;
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
 
@@ -27,9 +27,19 @@ function elimina(e){
     
 }
 function edita(e){
-    nomPagina = $(e.target).parent().clone().children().remove().text();
+    globalEditElement=e.target;
+    var nomPagina = $(e.target).clone().children().remove().end().text();
+    console.log(globalEditElement);
     $("input").val(nomPagina);
     nomPagina = $("input").val;
-    $("a").click($(e.target).parent().text(nomPagina));
+    $("#botoCanvia").click(canviaText);
+}
+function canviaText(e){
+    var nomPagina = $("input").val();
+    var element = $("<button>Elimina</button>");
+    $(element).click(elimina);
+    $(globalEditElement).text(nomPagina);
+    $(globalEditElement).append(element);
+    document.location="#";
 }
 $('#Afegeix').click(afegeix);
