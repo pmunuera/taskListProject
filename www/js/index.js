@@ -14,32 +14,25 @@ function Hello(e){
 }
 function afegeix(){
     nomPagina = window.prompt("Element a afegir");
-    //var element = $("<li><a href='#page1'>"+nomPagina+"<button>Elimina</button></li>");
     var number = localStorage.length;
     localStorage.setItem(number,nomPagina);
     if(nomPagina!=null){
-        /*$("ul").append(element);
-        $("button",element).click(elimina);
-        $("a",element).click(edita);
-        $("ul").listview("refresh");*/
         actualitza();
-        alert("Size: "+localStorage.length);
     }
 }
 function elimina(e){
-    $(e.target).parent().remove();
-    var nomPagina = $(e.target).parent().clone().children().remove().end().text();
-    alert(nomPagina);
+    var id=$(e.target).parent().parent().attr("id");
     for(var i=0;i<localStorage.length;i++){
-        if(localStorage.getItem(i)==nomPagina){
-            localStorage.removeItem(i)
+        if(i==id){
+            localStorage.removeItem(i);
         }
     }
+    actualitza();
     return false;
     
 }
 function edita(e){
-    globalEditElement=e.target;
+    globalEditElement=$(e.target).parent().attr("id");;
     var nomPagina = $(e.target).clone().children().remove().end().text();
     console.log(globalEditElement);
     $("input").val(nomPagina);
@@ -48,21 +41,25 @@ function edita(e){
 }
 function canviaText(e){
     var nomPagina = $("input").val();
-    var element = $("<button>Elimina</button>");
-    $(element).click(elimina);
-    $(globalEditElement).text(nomPagina);
-    $(globalEditElement).append(element);
+    for(var i=0;i<localStorage.length;i++){
+        if(i==globalEditElement){
+            localStorage.setItem(i,nomPagina);
+        }
+    }
+    actualitza();
     document.location="#";
 }
 function actualitza(e){
     $("ul").children().remove();
     $("ul").listview("refresh");
-    for(var i=0;i<localStorage.length;i++){
-        var element = $("<li><a href='#page1'>"+localStorage.getItem(i)+"<button>Elimina</button></li>");
-        $("ul").append(element);
-        $("button",element).click(elimina);
-        $("a",element).click(edita);
-        $("ul").listview("refresh");
+    if(localStorage!=null){
+        for(var i=0;i<localStorage.length;i++){
+            var element = $("<li id="+i+"><a href='#page1'>"+localStorage.getItem(i)+"<button>Elimina</button></li>");
+            $("ul").append(element);
+            $("button",element).click(elimina);
+            $("a",element).click(edita);
+            $("ul").listview("refresh");
+        }
     }
 }
 $('#Afegeix').click(afegeix);
